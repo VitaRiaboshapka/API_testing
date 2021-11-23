@@ -22,7 +22,8 @@ public class PetStore {
         Response response = given().
                 when().
                 get("/v2/pet/findByStatus?status=pending");
-        response.then().body("status[0]",equalTo("pending"));
+       response.then().
+                body("status[0]",equalTo("pending"));
         int statusCode = response.getStatusCode();
         System.out.println(response.prettyPrint());
         Assert.assertEquals(statusCode, 200);
@@ -35,7 +36,8 @@ public class PetStore {
                 given().
                 when().
                 get("/v2/pet/findByStatus?status=available");
-        response.then().body("status[0]",equalTo("available"));
+       response.then().
+                body("status[0]",equalTo("available"));
         System.out.println(response.prettyPrint());
         System.out.println("Status Code = "+response.getStatusCode());
         Assert.assertEquals(response.getStatusCode(), 200);
@@ -48,7 +50,8 @@ public class PetStore {
                 given().
                 when().
                 get("/v2/pet/findByStatus?status=sold");
-        response.then().body("status[0]",equalTo("sold"));
+       response.then().
+                body("status[0]",equalTo("sold"));
         System.out.println(response.prettyPrint());
         System.out.println("Status Code = "+response.getStatusCode());
         Assert.assertEquals(response.getStatusCode(), 200);
@@ -74,8 +77,9 @@ public class PetStore {
         Response response = given().
                 when().
                 get("/v2/pet/"+petId);
-        response.then().body("category.name",equalTo("PetCat")).
-                        body("name",equalTo("Cat"));
+       response.then().
+                body("category.name",equalTo("PetCat")).
+                body("name",equalTo("Cat"));
         System.out.println(response.prettyPrint());
         System.out.println("Status Code = "+response.getStatusCode());
         Assert.assertEquals(response.getStatusCode(), 200);
@@ -108,10 +112,12 @@ public class PetStore {
                 body(json).
                 when().
                 post("/v2/pet");
-        response.then().body("category.name",equalTo("PetCat")).
-                        body("name",equalTo("Cat")).
-                        body("tags[0].id",equalTo(0)).
-                        body("tags[0].name",equalTo("petStore"));
+       response.then().
+                body("category.name",equalTo("PetCat")).
+                body("name",equalTo("Cat")).
+                body("tags[0].id",equalTo(0)).
+                body("tags[0].name",equalTo("petStore")).
+                log().all();
         System.out.println(response.prettyPrint());
         System.out.println("Status Code = "+response.getStatusCode());
         Assert.assertEquals(response.getStatusCode(), 200);
@@ -147,8 +153,9 @@ public class PetStore {
                 body(json).
                 when().
                 put("/v2/pet");
-        response.then().body("name", equalTo("Cat")).
-                        body("status", equalTo("available"));
+       response.then().
+                body("name", equalTo("Cat")).
+                body("status", equalTo("available"));
         System.out.println(response.prettyPrint());
         System.out.println("Status Code = "+response.getStatusCode());
         Assert.assertEquals(response.getStatusCode(), 200);
@@ -176,7 +183,8 @@ public class PetStore {
               formParam("status","sold").
               when().
               post("/v2/pet/3");
-        response.then().body("message", equalTo("3"));
+     response.then().
+              body("message", equalTo("3"));
         System.out.println(response.prettyPrint());
         System.out.println("Status Code = "+response.getStatusCode());
         Assert.assertEquals(response.getStatusCode(), 200);
